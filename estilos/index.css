@@ -73,18 +73,24 @@ a {
     font-style: italic;
 }
 
+#busqueda {
+    height: 2.5rem; /* Aumenta la altura del campo de búsqueda */
+    font-size: 1.1rem; /* Aumenta el tamaño de la fuente del campo de búsqueda */
+    width: 100%;
+    flex: 1
+  }
+
 .mayusculas {
     text-transform: uppercase;
 }
 
 .botones {
-    border: 0.2rem solid var(--arcilla);
+    border: 0.1rem solid var(--arcilla);
     border-radius: 0.5rem;
     color: var(--primario);
-    padding: 0.8rem 1.5rem;
+    padding: 0.5rem 1.5rem;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    margin-left: 1rem;
     text-align: center;
 }
 
@@ -95,6 +101,7 @@ a {
 #btn-iniciar {
     background-color: var(--secundario);
     color: var(--primario);
+    margin-left: 1rem;
 }
 
 #btn-iniciar:hover {
@@ -104,7 +111,7 @@ a {
 #btn-registrar {
     background-color: var(--arcilla);
     color: var(--primario);
-
+    margin-left: 1rem;
 }
 
 #btn-registrar:hover {
@@ -115,6 +122,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 2rem;
 }
 
 /* carrusel */
@@ -154,6 +162,11 @@ a {
         padding: 0;
     }
 }
+
+
+
+
+
 
 
 /* main */
