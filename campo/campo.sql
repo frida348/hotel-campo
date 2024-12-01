@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-11-2024 a las 23:08:03
+-- Tiempo de generación: 01-12-2024 a las 04:09:23
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,82 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `campo`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `habitaciones`
+--
+
+CREATE TABLE `habitaciones` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `precio` decimal(10,2) NOT NULL,
+  `imagen` varchar(255) NOT NULL,
+  `descripcion` text NOT NULL,
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `categoria` enum('Estandar','Superior') NOT NULL DEFAULT 'Estandar',
+  `disponibilidad` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `habitaciones`
+--
+
+INSERT INTO `habitaciones` (`id`, `titulo`, `precio`, `imagen`, `descripcion`, `fecha_creacion`, `categoria`, `disponibilidad`) VALUES
+(6, 'emi', 1200.00, 'actualizaciones/fri.jpg', 'jejejeje', '2024-11-30 09:29:51', 'Superior', 1),
+(7, 'Estandar', 1234.00, 'actualizaciones/hisoka.png', 'estandar', '2024-11-30 11:12:14', 'Estandar', 0),
+(8, 'Caracol', 2000.00, 'actualizaciones/habitacion2.jpg', 'Amplia habitacion con balcon', '2024-12-01 02:27:13', 'Estandar', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pagos`
+--
+
+CREATE TABLE `pagos` (
+  `id` int(11) NOT NULL,
+  `reservacion_id` int(11) NOT NULL,
+  `nombre_titular` varchar(255) NOT NULL,
+  `numero_tarjeta` varchar(16) NOT NULL,
+  `fecha_expiracion` date NOT NULL,
+  `cvv` varchar(4) NOT NULL,
+  `monto` decimal(10,2) NOT NULL,
+  `fecha_pago` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pagos`
+--
+
+INSERT INTO `pagos` (`id`, `reservacion_id`, `nombre_titular`, `numero_tarjeta`, `fecha_expiracion`, `cvv`, `monto`, `fecha_pago`) VALUES
+(3, 9, 'Frida Pineda', '1111111111111111', '0000-00-00', '111', 3702.00, '2024-12-01 01:27:50');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reservaciones`
+--
+
+CREATE TABLE `reservaciones` (
+  `id` int(11) NOT NULL,
+  `habitacion_id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `fecha_llegada` date NOT NULL,
+  `fecha_salida` date NOT NULL,
+  `fecha_reservacion` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `reservaciones`
+--
+
+INSERT INTO `reservaciones` (`id`, `habitacion_id`, `nombre`, `email`, `telefono`, `fecha_llegada`, `fecha_salida`, `fecha_reservacion`) VALUES
+(7, 7, 'Mariana Pineda', 'mar@gmail.com', '997812738', '2024-12-02', '2024-12-03', '2024-11-30 19:27:50'),
+(8, 7, 'Mariana Pineda', 'mar@gmail.com', '997812738', '2024-12-02', '2024-12-03', '2024-11-30 19:27:50'),
+(9, 7, 'Mariana Pineda', 'mar@gmail.com', '997812738', '2024-12-02', '2024-12-03', '2024-11-30 19:27:50');
 
 -- --------------------------------------------------------
 
@@ -60,7 +136,11 @@ INSERT INTO `sesiones` (`id_sesion`, `id_usuario`, `token`, `fecha_inicio`, `fec
 (20, 18, '98b0f4d9b7e7359eae20548574dd5b07f54b374aa385b1a7ad6131efa954dc90', '2024-11-22 02:35:21', '2024-11-22 02:35:36', '::1'),
 (21, 18, 'aa48c081c36b5e727d24d9299b6c1b0fc9bf0f8e3313663b600c5193fcb85ad5', '2024-11-26 03:22:30', '2024-11-26 03:31:44', '::1'),
 (22, 18, '10659b79a5284e091d66d29a435bbcc3091990812e2c6987413ebf85e0e8a379', '2024-11-26 03:56:43', '2024-11-26 04:16:52', '::1'),
-(23, 18, '87443880be5940770c97aa3bc6b90d28445546856d6fe9966fb6fd095e92b187', '2024-11-26 05:01:32', NULL, '::1');
+(23, 18, '87443880be5940770c97aa3bc6b90d28445546856d6fe9966fb6fd095e92b187', '2024-11-26 05:01:32', NULL, '::1'),
+(24, 18, '4e250b106a91f29e5a7d855b11c7adf5e225e66cbc8a9a20e0eb0a125b18e64a', '2024-11-30 17:36:52', NULL, '::1'),
+(25, 18, '6afba7d66277bdda60a740bb4df584fd509a8e029a2c7a6071980dc0451fa4c9', '2024-12-01 02:51:15', '2024-12-01 08:45:14', '::1'),
+(26, 20, '34bef7e7f6c7d2094f63aea3578841b4c58da2bb105b37632564ae915817bce6', '2024-12-01 08:57:37', '2024-12-01 08:59:32', '::1'),
+(27, 20, 'ebbef58eff1ae25eb962ad765b638aa33a0dc8fe4d2b601f8ed1613fd0f32e93', '2024-12-01 08:59:42', '2024-12-01 09:56:05', '::1');
 
 -- --------------------------------------------------------
 
@@ -88,11 +168,32 @@ INSERT INTO `usuarios` (`id_usuario`, `nombre`, `email`, `password`, `rol`, `tel
 (7, 'fri', 'jjak@gmail.com', '$2y$10$s2vCke7cA/Cf/BNyivNNG.JQrYZG/O.Nr9f5IT7iba6Eoff2ySgR2', 'prospecto', '997812738', '2024-11-17 08:22:47', 1),
 (13, 'Emiliano Pineda', 'fridapineda348@gmail.com', '$2y$10$9v0UQOFfouemPNLlDD2Yie3usl6ns64e1k7dCm2nijtHs/d7pcZsG', 'prospecto', '998123456', '2024-11-17 08:51:56', 1),
 (17, 'Emiliano Alvarado', 'emi@gmail.com', '$2y$10$7l6dSbbBQ1XGaPLb0YroS.aQqAbg7ZXVoanDP67rRVPorxzpoP/T.', 'prospecto', '9991231234', '2024-11-17 18:05:46', 1),
-(18, 'Mariana Pineda', 'mar@gmail.com', '$2y$10$Rnkb5PMb9KRhqbUvJGg6heK53Mc2KgrrT3JSw82wimfiZ7d8wzY5y', 'prospecto', '997812738', '2024-11-17 18:36:06', 1);
+(18, 'Mariana Pineda', 'mar@gmail.com', '$2y$10$Rnkb5PMb9KRhqbUvJGg6heK53Mc2KgrrT3JSw82wimfiZ7d8wzY5y', 'prospecto', '997812738', '2024-11-17 18:36:06', 1),
+(20, 'Administrador', 'admin@hotel.com', '$2y$10$otf98knh7cuWzl.GdJQ...Pl6e9D97lz/G0vrlYfBZRONS/GGHjhy', 'admin', '1234567890', '2024-12-01 01:57:25', 1);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `habitaciones`
+--
+ALTER TABLE `habitaciones`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `pagos`
+--
+ALTER TABLE `pagos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `reservacion_id` (`reservacion_id`);
+
+--
+-- Indices de la tabla `reservaciones`
+--
+ALTER TABLE `reservaciones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `habitacion_id` (`habitacion_id`);
 
 --
 -- Indices de la tabla `sesiones`
@@ -114,20 +215,50 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `habitaciones`
+--
+ALTER TABLE `habitaciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `pagos`
+--
+ALTER TABLE `pagos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `reservaciones`
+--
+ALTER TABLE `reservaciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT de la tabla `sesiones`
 --
 ALTER TABLE `sesiones`
-  MODIFY `id_sesion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_sesion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `pagos`
+--
+ALTER TABLE `pagos`
+  ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`reservacion_id`) REFERENCES `reservaciones` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `reservaciones`
+--
+ALTER TABLE `reservaciones`
+  ADD CONSTRAINT `reservaciones_ibfk_1` FOREIGN KEY (`habitacion_id`) REFERENCES `habitaciones` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `sesiones`
